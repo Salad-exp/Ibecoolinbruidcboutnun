@@ -2867,14 +2867,18 @@ function setupAutosave() {
           break;
           
         case 'updateBackground':
-          editor.updateOptions({ 
-            theme: 'vs-dark',
-            backgroundColor: event.data.color 
+          monaco.editor.defineTheme('custom-theme', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [],
+            colors: {
+              'editor.background': event.data.color
+            }
           });
+          monaco.editor.setTheme('custom-theme');
           break;
       }
     });
 	</script>
 </body>
-
 </html>
