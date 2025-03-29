@@ -2839,15 +2839,19 @@ window.addEventListener('message', (event) => {
           break;
           
 case 'setValue':
-  if (event.data.preserveUndo) {
-    const model = editor.getModel();
-    editor.executeEdits('external-source', [{
-      range: model.getFullModelRange(),
-      text: event.data.content
-    }]);
-  } else {
-    editor.setValue(event.data.content);
-  }
+  const model = editor.getModel();
+  const oldValue = model.getValue();
+  
+  editor.pushUndoStop();
+  
+  editor.executeEdits('external-source', [{
+    range: model.getFullModelRange(),
+    text: event.data.content,
+    forceMoveMarkers: true
+  }]);
+  
+  editor.pushUndoStop(); 
+  editor.focus();
   break;
           
         case 'ShowMinimap':
