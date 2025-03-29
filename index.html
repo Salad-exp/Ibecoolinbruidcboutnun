@@ -2830,59 +2830,55 @@ function setupAutosave() {
 			}
 		});
 window.addEventListener('message', (event) => {
-  switch (event.data.command) {
-    case 'getValue':
-      event.source.postMessage({
-        type: 'editorContent',
-        content: editor.getValue()
-      }, '*');
-      break;
-
-    case 'setValue':
-      editor.setValue(event.data.content);
-      break;
-
-    case 'ShowMinimap':
-      editor.updateOptions({ minimap: { enabled: true } });
-      break;
-
-    case 'HideMinimap':
-      editor.updateOptions({ minimap: { enabled: false } });
-      break;
-
-    case 'EnableAutoComplete':
-      editor.updateOptions({ quickSuggestions: true });
-      break;
-
-    case 'DisableAutoComplete':
-      editor.updateOptions({ quickSuggestions: false });
-      break;
-
-    case 'updateFontSize':
-      editor.updateOptions({ fontSize: event.data.size });
-      break;
-
-    case 'updateFont':
-      editor.updateOptions({ fontFamily: event.data.font });
-      break;
-
-    case 'updateBackground':
-      monaco.editor.defineTheme('custom-theme', {
-        base: 'vs-dark',
-        inherit: true,
-        rules: [],
-        colors: {
-          'editor.background': event.data.color
-        }
-      });
-      monaco.editor.setTheme('custom-theme');
-      break;
-
-    case 'addTab':
-      addTab(event.data.title, event.data.content || '', event.data.id || null);
-      break;
-  }
-});
+      switch (event.data.command) {
+        case 'getValue':
+          event.source.postMessage({
+            type: 'editorContent',
+            content: editor.getValue()
+          }, '*');
+          break;
+          
+        case 'setValue':
+          editor.setValue(event.data.content);
+          break;
+          
+        case 'ShowMinimap':
+          editor.updateOptions({ minimap: { enabled: true } });
+          break;
+          
+        case 'HideMinimap':
+          editor.updateOptions({ minimap: { enabled: false } });
+          break;
+          
+        case 'EnableAutoComplete':
+          editor.updateOptions({ quickSuggestions: true });
+          break;
+          
+        case 'DisableAutoComplete':
+          editor.updateOptions({ quickSuggestions: false });
+          break;
+          
+        case 'updateFontSize':
+          editor.updateOptions({ fontSize: event.data.size });
+          break;
+          
+        case 'updateFont':
+          editor.updateOptions({ fontFamily: event.data.font });
+          break;
+          
+        case 'updateBackground':
+          monaco.editor.defineTheme('custom-theme', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [],
+            colors: {
+              'editor.background': event.data.color
+            }
+          });
+          monaco.editor.setTheme('custom-theme');
+          break;
+      }
+    }); 
 	</script>
 </body>
 </html>
