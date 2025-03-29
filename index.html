@@ -2838,9 +2838,17 @@ window.addEventListener('message', (event) => {
           }, '*');
           break;
           
-        case 'setValue':
-          editor.setValue(event.data.content);
-          break;
+case 'setValue':
+  if (event.data.preserveUndo) {
+    const model = editor.getModel();
+    editor.executeEdits('external-source', [{
+      range: model.getFullModelRange(),
+      text: event.data.content
+    }]);
+  } else {
+    editor.setValue(event.data.content);
+  }
+  break;
           
         case 'ShowMinimap':
           editor.updateOptions({ minimap: { enabled: true } });
