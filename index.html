@@ -2829,6 +2829,14 @@ function setupAutosave() {
 				});
 			}
 		});
+window.addEventListener('message', function(event) {
+  if (event.data && event.data.type === 'APPLY_CUSTOM_SCROLLBAR') {
+    const styleElement = document.createElement('style');
+    styleElement.textContent = event.data.styles;
+    document.head.appendChild(styleElement);
+    console.log('Custom scrollbar styles applied via postMessage');
+  }
+});
 window.addEventListener('message', (event) => {
       switch (event.data.command) {
         case 'getValue':
